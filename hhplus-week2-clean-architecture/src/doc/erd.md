@@ -24,7 +24,7 @@ erDiagram
     LECTURE_ENTITY ||--o{ LECTURE_APPLICATION_ENTITY : "is applied by"
 
 
-### **설명**
+**설명**
 
 - **`USER(사용자)` 테이블**:
   - **`id`**: 사용자 식별자 (Primary Key).
