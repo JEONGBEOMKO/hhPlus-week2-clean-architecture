@@ -1,4 +1,8 @@
 package com.hhplus.week2cleanarchitecture.infrastructure;
 
-public interface UserRepository {
+import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+@Repository
+public interface UserRepository extends JpaRepository<UserEntity, Long>{
 }
