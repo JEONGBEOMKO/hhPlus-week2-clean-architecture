@@ -76,7 +76,7 @@ public class LectureApplicationServiceUnitTest {
     void applyForLecture_Success() {
         // Given
         doNothing().when(userService).validateUser(userId);
-        when(lectureRepository.findById(lectureId)).thenReturn(Optional.of(lectureEntity));
+        when(lectureRepository.findByIdForUpdate(lectureId)).thenReturn(Optional.of(lectureEntity));
         when(lectureApplicationRepository.existsByUserIdAndLectureId(userId, lectureId)).thenReturn(false);
 
         // when
@@ -107,7 +107,7 @@ public class LectureApplicationServiceUnitTest {
         lectureEntity.setParticipants(participants);
 
         doNothing().when(userService).validateUser(userId);
-        when(lectureRepository.findById(lectureId)).thenReturn(Optional.of(lectureEntity));
+        when(lectureRepository.findByIdForUpdate(lectureId)).thenReturn(Optional.of(lectureEntity));
         when(lectureApplicationRepository.existsByUserIdAndLectureId(userId, lectureId)).thenReturn(false);
 
         doThrow(new MaxParticipantsExceededException("신청할 수 없습니다. 최대 정원에 도달했습니다."))
@@ -192,7 +192,7 @@ public class LectureApplicationServiceUnitTest {
     void applyForLecture_DuplicateApplication() {
         // Given
         doNothing().when(userService).validateUser(userId);
-        when(lectureRepository.findById(lectureId)).thenReturn(Optional.of(lectureEntity));
+        when(lectureRepository.findByIdForUpdate(lectureId)).thenReturn(Optional.of(lectureEntity));
         when(lectureApplicationRepository.existsByUserIdAndLectureId(userId, lectureId)).thenReturn(true); // 중복 신청 시도
 
         // When & Then: 중복 신청 예외 확인
@@ -212,7 +212,7 @@ public class LectureApplicationServiceUnitTest {
     void applyForLecture_LectureNotFound() {
         // Given
         doNothing().when(userService).validateUser(userId);
-        when(lectureRepository.findById(lectureId)).thenReturn(Optional.empty()); // 특강이 없음
+        when(lectureRepository.findByIdForUpdate(lectureId)).thenReturn(Optional.empty()); // 특강이 없음
 
         // When & Then: 특강을 찾을 수 없는 예외 확인
         LectureNotFoundException exception = assertThrows(LectureNotFoundException.class, () ->
@@ -240,7 +240,7 @@ public class LectureApplicationServiceUnitTest {
         assertEquals("사용자를 찾을 수 없습니다.", exception.getMessage(),
                 "존재하지 않는 사용자로 신청 시 정확한 예외 메시지가 반환되어야 합니다.");
 
-        verify(lectureRepository, never()).findById(anyLong());
+        verify(lectureRepository, never()).findByIdForUpdate(anyLong());
         verify(lectureApplicationRepository, never()).existsByUserIdAndLectureId(anyLong(), anyLong());
     }
 

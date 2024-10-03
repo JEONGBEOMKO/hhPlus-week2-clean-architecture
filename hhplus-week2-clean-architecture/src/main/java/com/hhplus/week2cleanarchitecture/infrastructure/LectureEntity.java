@@ -24,7 +24,8 @@ public class LectureEntity {
     private LocalDate date;
 
     // 값 컬렉션을 위한 매핑
-    @ElementCollection // 컬렉션을 별도의 테이블로 매핑
+    // 즉시 로딩으로 변경
+    @ElementCollection(fetch = FetchType.EAGER) // 컬렉션을 별도의 테이블로 매핑
     private Set<Long> participants = new HashSet<>();
 
     // 도메인 객체로 변환 메서드
