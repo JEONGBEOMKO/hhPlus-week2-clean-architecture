@@ -1,26 +1,27 @@
 ```mermaid
 erDiagram
-    USER {
-        BIGINT id PK
-        VARCHAR name
+    USER_ENTITY {
+        Long id PK
+        String name
     }
     
-    LECTURE {
-        BIGINT id PK
-        VARCHAR title
-        VARCHAR instructor
-        INT capacity
-        DATE date
+    LECTURE_ENTITY {
+        Long id PK
+        String title
+        String instructor
+        int capacity
+        Set participants
+        LocalDate date
     }
     
-    LECTURE_APPLICATION {
-        BIGINT id PK
-        BIGINT user_id FK
-        BIGINT lecture_id FK
+    LECTURE_APPLICATION_ENTITY {
+        Long id PK
+        Long user_id FK
+        Long lecture_id FK
     }
     
-    USER ||--o{ LECTURE_APPLICATION : 신청
-    LECTURE ||--o{ LECTURE_APPLICATION : 신청
+    USER_ENTITY ||--o{ LECTURE_APPLICATION_ENTITY : "has applications"
+    LECTURE_ENTITY ||--o{ LECTURE_APPLICATION_ENTITY : "is applied by"
 
 
 ### **설명**
