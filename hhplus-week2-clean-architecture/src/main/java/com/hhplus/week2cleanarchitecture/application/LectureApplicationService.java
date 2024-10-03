@@ -33,9 +33,12 @@ public class LectureApplicationService {
         // 사용자 검증
         userService.validateUser(userId);
 
-        // 특강 정보 로드 및 도메인 변환
-        LectureEntity lectureEntity = lectureRepository.findById(lectureId)
+        // 특강 정보 로드 및 비관적 락을 사용한 조회
+        // 비관적 락을 걸어 다른 트랜잭션에서 해당 강의에 동시 신청하는 것을 방지
+        LectureEntity lectureEntity = lectureRepository.findByIdForUpdate(lectureId)
                 .orElseThrow(() -> new LectureNotFoundException("강의를 찾을 수 없습니다"));
+
+        // 도메인 엔티티로 변환
         Lecture lecture = lectureEntity.toDomain();
 
         // 중복 신청 검증

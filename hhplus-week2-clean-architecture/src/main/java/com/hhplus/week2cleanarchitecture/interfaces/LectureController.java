@@ -1,11 +1,10 @@
 package com.hhplus.week2cleanarchitecture.interfaces;
 
 import com.hhplus.week2cleanarchitecture.application.LectureApplicationService;
-import com.hhplus.week2cleanarchitecture.application.UserService;
 import com.hhplus.week2cleanarchitecture.interfaces.dto.LectureApplyRequest;
 import com.hhplus.week2cleanarchitecture.interfaces.dto.LectureResponse;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +29,7 @@ public class LectureController {
 
     // 2. 신청 가능한 특강 목록 조회 API
     @GetMapping("/available")
-    public ResponseEntity<List<LectureResponse>> getAvailableLectures(@RequestParam LocalDate date){
+    public ResponseEntity<List<LectureResponse>> getAvailableLectures(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date){
         List<LectureResponse> lectures = lectureApplicationService.getAvailableLectures(date);
         return  ResponseEntity.ok(lectures);
     }
