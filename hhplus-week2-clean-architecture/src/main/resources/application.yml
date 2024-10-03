@@ -1,0 +1,19 @@
+#spring.application.name=hhplus-week2-clean-architecture
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    # H2 Database의 기본 설정(인메모리 DB)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console # H2 콘솔 경로 설정 (기본값: /h2-console)
+  jpa:
+    hibernate:
+      ddl-auto: create # 스키마 생성 전략 설정 (create, create-drop, update, none 중 선택 가능)
+    show-sql: true # 콘솔에 SQL 쿼리 로그를 출력
+    properties:
+      hibernate:
+        format_sql: true # SQL 쿼리 로그를 쉽게 포맷팅
